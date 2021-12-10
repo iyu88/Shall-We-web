@@ -5,9 +5,9 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const PORT = process.env.PORT || 5055;
-// const userRoute = require("./routes/user");
-// const authRoute = require("./routes/auth");
-// const contestRoute = require("./routes/contest");
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
+const contestRoute = require("./routes/contest");
 
 dotenv.config();
 
@@ -27,18 +27,18 @@ app.use(express.json());
 app.use(cors(corsOption));
 app.use(express.static(path.join(__dirname, "/client/build")));
 
+app.use("/api/user", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/contest", contestRoute);
+
 /*
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "front/build/index.html"));
 });
-
-// app.use("/api/user", userRoute);
-// app.use("/api/auth", authRoute);
-// app.use("/api/contest", contestRoute);
 */
+
 // React Router 오류 방지
 app.get("*", (req, res) => {
-  console.log("404 Not Found");
   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 

@@ -1,0 +1,37 @@
+.contest_card_wrapper {
+  width: 24rem;
+  height: 22rem;
+  padding: 1em;
+  margin: 1em;
+  display: flex;
+  justify-content: space-around;
+  background-color: burlywood;
+}
+
+.contest_card_left {
+  background-color: aqua;
+}
+
+.contest_card_img {
+  width: 12rem;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.contest_card_right {
+  width: 12rem;
+  height: 20rem;
+  background-color: brown;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.contest_card_right div {
+  font-size: 1.5rem;
+  padding: 0.5em;
+}
+
+.contest_card_title {
+  font-weight: bold;
+}

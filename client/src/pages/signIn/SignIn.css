@@ -1,0 +1,14 @@
+.signin_wrapper {
+  width: 30vw;
+  text-align: center;
+  background-color: aqua;
+}
+
+.signin_title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.signin_additional {
+  font-size: 1rem;
+}

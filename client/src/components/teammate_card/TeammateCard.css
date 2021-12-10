@@ -1,0 +1,40 @@
+.teammate_card_wrapper {
+  width: 16rem;
+  height: 22rem;
+  padding: 1em;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: burlywood;
+}
+
+.teammate_card_left {
+  background-color: aqua;
+}
+
+.teammate_card_img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.teammate_card_right {
+  width: 12rem;
+  height: 12rem;
+  background-color: brown;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.teammate_card_right div {
+  font-size: 1rem;
+  padding: 0.5em;
+}
+
+.teammate_card_title {
+  font-weight: bold;
+}

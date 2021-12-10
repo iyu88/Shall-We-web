@@ -1,0 +1,5 @@
+.teammates_card_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

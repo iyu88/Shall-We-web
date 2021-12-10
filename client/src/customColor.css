@@ -1,0 +1,37 @@
+:root {
+  --my-primary: #67abf1;
+  --my-secondary: #7293bc;
+  --my-light: #f0faff;
+  --my-point: #eee8a9;
+}
+
+.my-bg-primary {
+  background-color: var(--my-primary);
+}
+
+.my-bg-secondary {
+  background-color: var(--my-secondary);
+}
+
+.my-bg-light {
+  background-color: var(--my-light);
+}
+
+.my-bg-point {
+  background-color: var(--my-point);
+}
+
+.my-txt-primary {
+  background-color: var(--my-primary);
+}
+.my-txt-secondary {
+  background-color: var(--my-secondary);
+}
+
+.my-txt-light {
+  background-color: var(--my-light);
+}
+
+.my-txt-point {
+  background-color: var(--my-point);
+}

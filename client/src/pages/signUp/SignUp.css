@@ -1,0 +1,10 @@
+.signup_wrapper {
+  width: 30vw;
+  text-align: center;
+  background-color: aqua;
+}
+
+.signup_title {
+  font-size: 3rem;
+  font-weight: bold;
+}
