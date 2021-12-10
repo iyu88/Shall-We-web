@@ -25,7 +25,7 @@ mongoose
 
 app.use(express.json());
 app.use(cors(corsOption));
-app.use(express.static(path.join(__dirname, "front/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 /*
 app.get("/", (req, res) => {
@@ -35,20 +35,19 @@ app.get("/", (req, res) => {
 // app.use("/api/user", userRoute);
 // app.use("/api/auth", authRoute);
 // app.use("/api/contest", contestRoute);
-
+*/
 // React Router 오류 방지
 app.get("*", (req, res) => {
   console.log("404 Not Found");
-  res.sendFile(path.join(__dirname, "front/build/index.html"));
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
-*/
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 app.listen(PORT, () => {
   console.log("Server is running.");
