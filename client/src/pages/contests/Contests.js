@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Contests() {
+  const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
   const contests_subMenu = [
     {
       title: "공모전 목록",
@@ -26,7 +27,7 @@ function Contests() {
   useEffect(() => {
     const fetchContests = async () => {
       try {
-        const res = await axios.get("http://localhost:5050/api/contest/");
+        const res = await axios.get(`${SHALLWE_URL}/api/contest/`);
         console.log(res.data);
         setAllContest(res.data);
       } catch (err) {
