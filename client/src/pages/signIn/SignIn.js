@@ -14,6 +14,7 @@ import { useRef } from "react";
 import axios from "axios";
 
 function SignIn() {
+  const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
   const userId = useRef();
   const password = useRef();
   const navigate = useNavigate();
@@ -27,10 +28,7 @@ function SignIn() {
     };
 
     try {
-      const res = await axios.post(
-        "http://localhost:5050/api/auth/signIn",
-        user
-      );
+      const res = await axios.post(`${SHALLWE_URL}/api/auth/signIn`, user);
       navigate("/");
       console.log(res.data);
     } catch (err) {

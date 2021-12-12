@@ -15,6 +15,7 @@ import { useRef } from "react";
 import axios from "axios";
 
 function ContestRegister() {
+  const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
   const contests_subMenu = [
     {
       title: "공모전 목록",
@@ -49,10 +50,7 @@ function ContestRegister() {
     };
 
     try {
-      await axios.post(
-        "http://localhost:5050/api/contest/register",
-        newContest
-      );
+      await axios.post(`${SHALLWE_URL}/api/contest/register`, newContest);
       console.log("공모전 등록 성공");
       navigate("/contests");
     } catch (err) {

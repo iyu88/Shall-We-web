@@ -14,6 +14,7 @@ import { useRef } from "react";
 import axios from "axios";
 
 function SignUp() {
+  const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
   const username = useRef();
   const userId = useRef();
   const password = useRef();
@@ -33,7 +34,7 @@ function SignUp() {
         password: password.current.value,
       };
       try {
-        await axios.post("http://localhost:5050/api/auth/signUp", user);
+        await axios.post(`${SHALLWE_URL}/api/auth/signUp`, user);
         // history.push("/signIn");
       } catch (err) {
         console.log(err);
