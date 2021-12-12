@@ -8,6 +8,12 @@ const ContestSchema = new mongoose.Schema(
       min: 3,
       max: 50,
     },
+    userId: {
+      type: String,
+      required: true,
+      min: 6,
+      max: 10,
+    },
     article_title: {
       type: String,
       required: true,

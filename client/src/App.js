@@ -17,8 +17,11 @@ import TeammateRegister from "./pages/teammate_register/TeammateRegister";
 import Teammate from "./pages/teammate/Teammate";
 import ReviewRegister from "./pages/review_register/ReviewRegister";
 import Review from "./pages/review/Review";
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
 
 function App() {
+  const { user } = useContext(AuthContext);
   return (
     <Router>
       <Routes>

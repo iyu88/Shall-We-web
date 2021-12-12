@@ -1,4 +1,5 @@
-// import { Link } from "react-router-dom";
+import "./MyNav.css";
+import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 function MyNav() {
@@ -6,13 +7,13 @@ function MyNav() {
     <>
       <Navbar variant="light" className="my-bg-primary">
         <Container>
-          <Navbar.Brand href="/">Shall WE</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/contests">공모전</Nav.Link>
-            <Nav.Link href="/teammates">팀원 찾기</Nav.Link>
-            <Nav.Link href="/reviews">후기 게시판</Nav.Link>
-            <Nav.Link href="/personals">계정 관리</Nav.Link>
-            <Nav.Link href="/signIn">로그인</Nav.Link>
+          <Nav className="me-auto" id="my_nav">
+            <Link to="/">Shall WE</Link>
+            <Link to="/contests">공모전</Link>
+            <Link to="/teammates">팀원 찾기</Link>
+            <Link to="/reviews">후기 게시판</Link>
+            <Link to="/personals">계정 관리</Link>
+            <Link to="/signIn">로그인</Link>
           </Nav>
         </Container>
       </Navbar>

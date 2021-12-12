@@ -3,3 +3,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+
+.contests_card_wrapper a {
+  text-decoration: none;
+  color: black;
+}

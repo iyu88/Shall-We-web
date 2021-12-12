@@ -1,6 +1,6 @@
 import "./TeammateCard.css";
 
-function TeammateCard() {
+function TeammateCard({ teammate }) {
   return (
     <>
       <div className="teammate_card_wrapper">
@@ -12,11 +12,13 @@ function TeammateCard() {
           />
         </div>
         <div className="teammate_card_right">
-          <div className="teammate_card_title">이름 / 아이디</div>
-          <div className="teammate_card_info1">직업</div>
-          <div className="teammate_card_info2">포지션</div>
-          <div className="teammate_card_info3">대표 기술 역량</div>
-          <div className="teammate_card_info4">조회수</div>
+          <div className="teammate_card_title">{teammate?.nickname}</div>
+          <div className="teammate_card_info1">{teammate?.job}</div>
+          <div className="teammate_card_info2">{teammate?.position}</div>
+          <div className="teammate_card_info3">{teammate?.technical}</div>
+          <div className="teammate_card_info4">
+            {teammate?.teammate_view.length}
+          </div>
         </div>
       </div>
     </>

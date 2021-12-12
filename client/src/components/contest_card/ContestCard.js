@@ -12,10 +12,12 @@ function ContestCard({ contest }) {
           />
         </div>
         <div className="contest_card_right">
-          <div className="contest_card_title">{contest?.contest_title}</div>
+          <div className="contest_card_title">{contest?.article_title}</div>
           <div className="contest_card_info1">{contest?.due_date}</div>
           <div className="contest_card_info2">{contest?.num_of_people}</div>
-          <div className="contest_card_info3">{contest?.viewer}</div>
+          <div className="contest_card_info3">
+            {contest?.contest_view.length}
+          </div>
         </div>
       </div>
     </>

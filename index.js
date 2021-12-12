@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 5055;
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const contestRoute = require("./routes/contest");
+const teammateRoute = require("./routes/teammate");
+const reviewRoute = require("./routes/review");
 
 dotenv.config();
 
@@ -30,16 +32,16 @@ app.use(express.static(path.join(__dirname, "/client/build")));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/contest", contestRoute);
-
-/*
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "front/build/index.html"));
-});
-*/
+app.use("/api/teammate", teammateRoute);
+app.use("/api/review", reviewRoute);
 
 // React Router 오류 방지
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log("Server is running.");
 });
 
 // if (process.env.NODE_ENV === "production") {
@@ -48,7 +50,3 @@ app.get("*", (req, res) => {
 //     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 //   });
 // }
-
-app.listen(PORT, () => {
-  console.log("Server is running.");
-});

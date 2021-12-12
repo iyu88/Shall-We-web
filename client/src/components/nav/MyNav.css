@@ -1,0 +1,16 @@
+#my_nav {
+  display: flex;
+  align-items: center;
+}
+
+#my_nav a {
+  color: black;
+  margin-left: 2rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+#my_nav > a:first-child {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

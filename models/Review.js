@@ -7,7 +7,12 @@ const ReviewSchema = new mongoose.Schema(
       required: true,
       min: 3,
       max: 50,
-      unique: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+      min: 6,
+      max: 10,
     },
     review_type: {
       type: String,
@@ -16,6 +21,12 @@ const ReviewSchema = new mongoose.Schema(
     review_to_whom: {
       type: String,
       required: true,
+    },
+    review_title: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 20,
     },
     review_content: {
       type: String,

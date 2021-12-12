@@ -12,14 +12,15 @@ import Footer from "../../components/footer/Footer";
 import { useRef } from "react";
 // import { useHistory } from "react-router";
 import axios from "axios";
+import { ReactComponent as PicSignUp } from "../../imgs/pic_signUp.svg";
 
 function SignUp() {
   const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
+  // const SHALLWE_URL = "http://localhost:5055";
   const username = useRef();
   const userId = useRef();
   const password = useRef();
   const passwordCheck = useRef();
-  // const history = useHistory();
 
   const submit_form = async (e) => {
     e.preventDefault();
@@ -35,7 +36,6 @@ function SignUp() {
       };
       try {
         await axios.post(`${SHALLWE_URL}/api/auth/signUp`, user);
-        // history.push("/signIn");
       } catch (err) {
         console.log(err);
       }
@@ -47,7 +47,7 @@ function SignUp() {
       <MyNav></MyNav>
       <Container fluid>
         <Row>
-          <Col>1 of 3</Col>
+          <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
               <Col>
@@ -95,10 +95,12 @@ function SignUp() {
                   </Form>
                 </Row>
               </Col>
-              <Col>여기 뭔가 그림</Col>
+              <Col className="d-flex justify-content-center align-items-center">
+                <PicSignUp style={{ width: "100%", height: "100%" }} />
+              </Col>
             </Row>
           </Col>
-          <Col>3 of 3</Col>
+          <Col></Col>
         </Row>
       </Container>
       <Footer></Footer>

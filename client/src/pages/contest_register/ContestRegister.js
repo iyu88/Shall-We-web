@@ -11,11 +11,13 @@ import MyNav from "../../components/nav/MyNav";
 import SubNav from "../../components/subNav/SubNav";
 import Footer from "../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 function ContestRegister() {
   const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
+  // const SHALLWE_URL = "http://localhost:5055";
   const contests_subMenu = [
     {
       title: "공모전 목록",
@@ -26,7 +28,9 @@ function ContestRegister() {
       link: "/contests/register",
     },
   ];
+
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const article_title = useRef();
   const contest_title = useRef();
@@ -39,7 +43,8 @@ function ContestRegister() {
   const registerNewContest = async (e) => {
     e.preventDefault();
     const newContest = {
-      user_id: "1234",
+      user_id: user._id,
+      userId: user.userId,
       article_title: article_title.current.value,
       contest_title: contest_title.current.value,
       contest_picture: contest_picture.current.value,
@@ -49,17 +54,19 @@ function ContestRegister() {
       requirements: requirements.current.value,
     };
 
-    try {
-      await axios.post(`${SHALLWE_URL}/api/contest/register`, newContest);
-      console.log("공모전 등록 성공");
-      navigate("/contests");
-    } catch (err) {
-      console.log(err);
+    let isSave = window.confirm("이대로 공모전을 등록할까요?");
+    if (isSave) {
+      try {
+        await axios.post(`${SHALLWE_URL}/api/contest/register`, newContest);
+        console.log("공모전 등록 성공");
+        navigate("/contests");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   const cancelNewContest = () => {
-    // bootstrap 모달 가능
     let isCancel = window.confirm(
       "작성 중인 정보가 사라집니다. 공모전 등록을 취소하시겠습니까?"
     );
@@ -67,24 +74,26 @@ function ContestRegister() {
       navigate("/contests");
     }
   };
+
   return (
     <>
       <MyNav></MyNav>
       <SubNav subMenu={contests_subMenu}></SubNav>
       <Container fluid>
         <Row>
-          <Col>1 of 3</Col>
+          <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
-            <Form>
+            <Form className="p-5" onSubmit={registerNewContest}>
               <Row>
-                <Col>
+                <Col className="d-flex justify-content-center">
                   <Image
+                    className="mb-3"
                     alt="포스터 이미지"
                     style={{ width: "32rem" }}
                     src="https://www.kogl.or.kr/contents_images2//20200907/1599437999867.png"
                   />
                 </Col>
-                <Col>
+                <Col className="d-flex flex-column justify-content-between">
                   <FloatingLabel
                     controlId="contest_title"
                     label="글 제목"
@@ -139,53 +148,50 @@ function ContestRegister() {
                       </FloatingLabel>
                     </Col>
                   </Row>
+                  <FloatingLabel
+                    controlId="floatingTextarea2"
+                    label="내용"
+                    className="my-3"
+                  >
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: "100px" }}
+                      ref={contest_content}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId="floatingTextarea2"
+                    label="요구사항"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: "100px" }}
+                      ref={requirements}
+                    />
+                  </FloatingLabel>
+                  <Row>
+                    <Col className="d-flex justify-content-end">
+                      <Button
+                        type="submit"
+                        className="mb-2"
+                        onClick={cancelNewContest}
+                      >
+                        취소하기
+                      </Button>
+                      <span>&nbsp;</span>
+                      <Button type="submit" className="mb-2">
+                        등록하기
+                      </Button>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-              <FloatingLabel
-                controlId="floatingTextarea2"
-                label="내용"
-                className="my-3"
-              >
-                <Form.Control
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  style={{ height: "100px" }}
-                  ref={contest_content}
-                />
-              </FloatingLabel>
-              <FloatingLabel
-                controlId="floatingTextarea2"
-                label="요구사항"
-                className="mb-3"
-              >
-                <Form.Control
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  style={{ height: "80px" }}
-                  ref={requirements}
-                />
-              </FloatingLabel>
             </Form>
-            <Row>
-              <Col className="d-flex justify-content-end">
-                <Button
-                  type="submit"
-                  className="mb-2"
-                  onClick={cancelNewContest}
-                >
-                  취소하기
-                </Button>
-                <Button
-                  type="submit"
-                  className="mb-2"
-                  onClick={registerNewContest}
-                >
-                  등록하기
-                </Button>
-              </Col>
-            </Row>
           </Col>
-          <Col>3 of 3</Col>
+          <Col></Col>
         </Row>
       </Container>
       <Footer></Footer>

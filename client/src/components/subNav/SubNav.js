@@ -1,4 +1,5 @@
-// import { Link } from "react-router-dom";
+import "./SubNav.css";
+import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useEffect } from "react";
 
@@ -10,13 +11,10 @@ function SubNav({ subMenu }) {
     <>
       <Navbar variant="light" className="my-bg-secondary">
         <Container>
-          <Nav className="me-auto">
+          <Nav className="me-auto" id="sub_nav">
             {subMenu?.map((el, i) => {
               return (
-                <Nav.Link
-                  href={`${el.link}`}
-                  key={`${i}`}
-                >{`${el.title}`}</Nav.Link>
+                <Link to={`${el.link}`} key={`${i}`}>{`${el.title}`}</Link>
               );
             })}
           </Nav>

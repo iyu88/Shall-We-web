@@ -1,5 +1,5 @@
 import { Row, Col, Container } from "react-bootstrap";
-import "./Contest.css";
+import "./Contests.css";
 import MyNav from "../../components/nav/MyNav";
 import SubNav from "../../components/subNav/SubNav";
 import Footer from "../../components/footer/Footer";
@@ -11,6 +11,7 @@ import axios from "axios";
 
 function Contests() {
   const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
+  // const SHALLWE_URL = "http://localhost:5055";
   const contests_subMenu = [
     {
       title: "공모전 목록",
@@ -28,7 +29,6 @@ function Contests() {
     const fetchContests = async () => {
       try {
         const res = await axios.get(`${SHALLWE_URL}/api/contest/`);
-        console.log(res.data);
         setAllContest(res.data);
       } catch (err) {
         console.log(err);
@@ -43,7 +43,7 @@ function Contests() {
       <SubNav subMenu={contests_subMenu}></SubNav>
       <Container fluid>
         <Row>
-          <Col>1 of 3</Col>
+          <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
               <Filter></Filter>
@@ -58,7 +58,7 @@ function Contests() {
               </div>
             </Row>
           </Col>
-          <Col>3 of 3</Col>
+          <Col></Col>
         </Row>
       </Container>
       <Footer></Footer>

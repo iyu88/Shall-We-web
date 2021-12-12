@@ -5,6 +5,7 @@ router.post("/register", async (req, res) => {
   try {
     const newContest = new Contest({
       user_id: req.body.user_id,
+      userId: req.body.userId,
       article_title: req.body.article_title,
       contest_title: req.body.contest_title,
       contest_picture: req.body.contest_picture,
