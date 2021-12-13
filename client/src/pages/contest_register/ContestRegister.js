@@ -11,7 +11,7 @@ import MyNav from "../../components/nav/MyNav";
 import SubNav from "../../components/subNav/SubNav";
 import Footer from "../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -31,10 +31,11 @@ function ContestRegister() {
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [file, setFile] = useState(null);
 
   const article_title = useRef();
   const contest_title = useRef();
-  const contest_picture = useRef();
+  // const contest_picture = useRef();
   const due_date = useRef();
   const num_of_people = useRef();
   const contest_content = useRef();
@@ -42,23 +43,36 @@ function ContestRegister() {
 
   const registerNewContest = async (e) => {
     e.preventDefault();
-    const newContest = {
-      user_id: user._id,
-      userId: user.userId,
-      article_title: article_title.current.value,
-      contest_title: contest_title.current.value,
-      contest_picture: contest_picture.current.value,
-      due_date: due_date.current.value,
-      num_of_people: num_of_people.current.value,
-      contest_content: contest_content.current.value,
-      requirements: requirements.current.value,
-    };
 
     let isSave = window.confirm("이대로 공모전을 등록할까요?");
     if (isSave) {
+      const newContest = {
+        user_id: user._id,
+        userId: user.userId,
+        article_title: article_title.current.value,
+        contest_title: contest_title.current.value,
+        // contest_picture: contest_picture.current.value,
+        due_date: due_date.current.value,
+        num_of_people: num_of_people.current.value,
+        contest_content: contest_content.current.value,
+        requirements: requirements.current.value,
+      };
+
+      if (file) {
+        const data = new FormData();
+        const filename = Date.now() + file.name;
+        data.append("name", filename);
+        data.append("file", file);
+        newContest.contest_picture = filename;
+        try {
+          await axios.post(`${SHALLWE_URL}/api/upload`, data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       try {
         await axios.post(`${SHALLWE_URL}/api/contest/register`, newContest);
-        console.log("공모전 등록 성공");
         navigate("/contests");
       } catch (err) {
         console.log(err);
@@ -86,12 +100,14 @@ function ContestRegister() {
             <Form className="p-5" onSubmit={registerNewContest}>
               <Row>
                 <Col className="d-flex justify-content-center">
-                  <Image
-                    className="mb-3"
-                    alt="포스터 이미지"
-                    style={{ width: "32rem" }}
-                    src="https://www.kogl.or.kr/contents_images2//20200907/1599437999867.png"
-                  />
+                  {file && (
+                    <Image
+                      className="mb-3"
+                      alt="포스터 이미지"
+                      style={{ width: "32rem" }}
+                      src={URL.createObjectURL(file)}
+                    />
+                  )}
                 </Col>
                 <Col className="d-flex flex-column justify-content-between">
                   <FloatingLabel
@@ -118,7 +134,10 @@ function ContestRegister() {
                   </FloatingLabel>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>공모전 포스터</Form.Label>
-                    <Form.Control type="file" ref={contest_picture} />
+                    <Form.Control
+                      type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
                   </Form.Group>
                   <Row>
                     <Col>

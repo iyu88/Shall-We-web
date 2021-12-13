@@ -4,6 +4,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
 const PORT = process.env.PORT || 5055;
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
@@ -28,6 +29,22 @@ mongoose
 app.use(express.json());
 app.use(cors(corsOption));
 app.use(express.static(path.join(__dirname, "/client/build")));
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("파일 업로드");
+});
 
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);

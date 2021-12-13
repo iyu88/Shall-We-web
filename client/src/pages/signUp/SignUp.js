@@ -10,6 +10,7 @@ import "./SignUp.css";
 import MyNav from "../../components/nav/MyNav";
 import Footer from "../../components/footer/Footer";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useHistory } from "react-router";
 import axios from "axios";
 import { ReactComponent as PicSignUp } from "../../imgs/pic_signUp.svg";
@@ -21,6 +22,7 @@ function SignUp() {
   const userId = useRef();
   const password = useRef();
   const passwordCheck = useRef();
+  const navigate = useNavigate();
 
   const submit_form = async (e) => {
     e.preventDefault();
@@ -35,7 +37,9 @@ function SignUp() {
         password: password.current.value,
       };
       try {
-        await axios.post(`${SHALLWE_URL}/api/auth/signUp`, user);
+        const res = await axios.post(`${SHALLWE_URL}/api/auth/signUp`, user);
+        window.alert(res.data);
+        navigate("/");
       } catch (err) {
         console.log(err);
       }

@@ -1,6 +1,8 @@
 import "./ContestCard.css";
 
 function ContestCard({ contest }) {
+  const IMGS = "https://shall-we-web.herokuapp.com/images/";
+  // const IMGS = "http://localhost:5055/images/";
   return (
     <>
       <div className="contest_card_wrapper">
@@ -8,7 +10,7 @@ function ContestCard({ contest }) {
           <img
             className="contest_card_img"
             alt="포스터 사진"
-            src="https://www.kogl.or.kr/contents_images2//20200907/1599437999867.png"
+            src={IMGS + contest?.contest_picture}
           />
         </div>
         <div className="contest_card_right">

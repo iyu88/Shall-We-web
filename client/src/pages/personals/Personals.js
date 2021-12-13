@@ -2,8 +2,13 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import MyNav from "../../components/nav/MyNav";
 import Footer from "../../components/footer/Footer";
 import SubNav from "../../components/subNav/SubNav";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 function Personals() {
+  const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
+  // const SHALLWE_URL = "http://localhost:5055";
   const personals_subMenu = [
     {
       title: "개인정보수정",
@@ -15,13 +20,41 @@ function Personals() {
     },
   ];
 
+  const { user } = useContext(AuthContext);
+  const [myInfo, setMyInfo] = useState({});
+  const [myProfile, setMyProfile] = useState({});
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const res = await axios.get(`${SHALLWE_URL}/api/user/${user._id}`);
+        setMyInfo(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchInfo();
+  }, []);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(`${SHALLWE_URL}/api/teammate/${user._id}`);
+        setMyProfile(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   return (
     <>
       <MyNav></MyNav>
       <SubNav subMenu={personals_subMenu}></SubNav>
       <Container fluid>
         <Row>
-          <Col>1 of 3</Col>
+          <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
               <Col>
@@ -34,11 +67,11 @@ function Personals() {
                         </Row>
                         <Row>
                           <Col>이름</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myInfo?.username}</Col>
                         </Row>
                         <Row>
                           <Col>아이디</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myInfo?.userId}</Col>
                         </Row>
                         <Row>
                           <Col>비밀번호</Col>
@@ -58,23 +91,23 @@ function Personals() {
                         </Row>
                         <Row>
                           <Col>닉네임</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myProfile?.nickname}</Col>
                         </Row>
                         <Row>
                           <Col>이메일</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myProfile?.email}</Col>
                         </Row>
                         <Row>
                           <Col>직업</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myProfile?.job}</Col>
                         </Row>
                         <Row>
                           <Col>포지션</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myProfile?.position}</Col>
                         </Row>
                         <Row>
                           <Col>대표 기술 역량</Col>
-                          <Col>이름이에여</Col>
+                          <Col>{myProfile?.technical}</Col>
                         </Row>
                         <Row>
                           <Col>
@@ -107,7 +140,7 @@ function Personals() {
               </Col>
             </Row>
           </Col>
-          <Col>3 of 3</Col>
+          <Col></Col>
         </Row>
       </Container>
       <Footer></Footer>

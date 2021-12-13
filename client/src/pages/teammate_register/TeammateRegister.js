@@ -31,11 +31,12 @@ function TeammateRegister() {
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [file, setFile] = useState(null);
   const [position, setPosition] = useState("개발자");
 
   const nickname = useRef();
   const email = useRef();
-  const profile_pic = useRef();
+  // const profile_pic = useRef();
   const job = useRef();
   const technical = useRef();
   const introduce = useRef();
@@ -46,22 +47,35 @@ function TeammateRegister() {
 
   const registerNewTeammate = async (e) => {
     e.preventDefault();
-    const newTeammate = {
-      user_id: user._id,
-      nickname: nickname.current.value,
-      email: email.current.value,
-      profile_pic: profile_pic.current.value,
-      job: job.current.value,
-      position: position,
-      technical: technical.current.value,
-      introduce: introduce.current.value,
-    };
 
     let isSave = window.confirm("이대로 프로필을 등록할까요?");
     if (isSave) {
+      const newTeammate = {
+        user_id: user._id,
+        nickname: nickname.current.value,
+        email: email.current.value,
+        // profile_pic: profile_pic.current.value,
+        job: job.current.value,
+        position: position,
+        technical: technical.current.value,
+        introduce: introduce.current.value,
+      };
+
+      if (file) {
+        const data = new FormData();
+        const filename = Date.now() + file.name;
+        data.append("name", filename);
+        data.append("file", file);
+        newTeammate.profile_pic = filename;
+        try {
+          await axios.post(`${SHALLWE_URL}/api/upload`, data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       try {
         await axios.post(`${SHALLWE_URL}/api/teammate/register`, newTeammate);
-        console.log("프로필 등록 성공");
         navigate("/teammates");
       } catch (err) {
         console.log(err);
@@ -89,12 +103,14 @@ function TeammateRegister() {
             <Form className="p-5" onSubmit={registerNewTeammate}>
               <Row>
                 <Col className="d-flex justify-content-center">
-                  <Image
-                    className="mb-3"
-                    alt="프로필 이미지"
-                    style={{ width: "28rem" }}
-                    src="https://file.mk.co.kr/meet/neds/2020/10/image_readtop_2020_1031316_16021305794383917.jpg"
-                  />
+                  {file && (
+                    <Image
+                      className="mb-3"
+                      alt="프로필 이미지"
+                      style={{ width: "28rem" }}
+                      src={URL.createObjectURL(file)}
+                    />
+                  )}
                 </Col>
                 <Col className="d-flex flex-column justify-content-between">
                   <FloatingLabel
@@ -121,7 +137,10 @@ function TeammateRegister() {
                   </FloatingLabel>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>프로필 사진</Form.Label>
-                    <Form.Control type="file" ref={profile_pic} />
+                    <Form.Control
+                      type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
                   </Form.Group>
                   <FloatingLabel
                     controlId="contest_title"

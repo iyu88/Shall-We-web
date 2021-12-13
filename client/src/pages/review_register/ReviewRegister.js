@@ -60,13 +60,11 @@ function ReviewRegister() {
       review_content: review_content.current.value,
       impression: impression.current.value,
     };
-    console.log(newReview);
 
     let isSave = window.confirm("이대로 리뷰를 등록할까요?");
     if (isSave) {
       try {
         await axios.post(`${SHALLWE_URL}/api/review/register`, newReview);
-        console.log("리뷰 등록 성공");
         navigate("/reviews");
       } catch (err) {
         console.log(err);

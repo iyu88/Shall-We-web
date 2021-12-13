@@ -39,4 +39,59 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const contest = await Contest.findById(req.params.id);
+    if (conteste.user_id === req.body.userId) {
+      await contest.updateOne({ $set: req.body });
+      res.status(200).json("성공적으로 수정했습니다.");
+    } else {
+      res.status(403).json("자신이 작성한 글만 수정할 수 있습니다.");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const contest = await Contest.findById(req.params.id);
+    if (contest.user_id === req.body.userId) {
+      await contest.deleteOne();
+      res.status(200).json("성공적으로 삭제했습니다.");
+    } else {
+      res.status(403).json("자신이 작성한 글만 삭제할 수 있습니다.");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/:id/fav", async (req, res) => {
+  try {
+    const contest = await Contest.findById(req.params.id);
+    if (!contest.contest_fav.includes(req.body.userId)) {
+      await contest.updateOne({ $push: { contest_fav: req.body.userId } });
+      res.status(200).json("즐겨찾기에 추가되었습니다.");
+    } else {
+      await contest.updateOne({ $pull: { contest_fav: req.body.userId } });
+      res.status(200).json("즐겨찾기에서 제거되었습니다.");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/:id/view", async (req, res) => {
+  try {
+    const contest = await Contest.findById(req.params.id);
+    if (!contest.contest_view.includes(req.body.userId)) {
+      await contest.updateOne({ $push: { contest_view: req.body.userId } });
+      res.status(200).json("해당 글을 조회함");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

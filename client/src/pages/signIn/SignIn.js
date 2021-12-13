@@ -10,21 +10,25 @@ import "./SignIn.css";
 import MyNav from "../../components/nav/MyNav";
 import Footer from "../../components/footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { ReactComponent as PicSignIn } from "../../imgs/pic_signIn.svg";
 
 function SignIn() {
-  // const SHALLWE_URL = "https://shall-we-web.herokuapp.com";
-  // const SHALLWE_URL = "http//localhost:5055";
   const userId = useRef();
   const password = useRef();
   const navigate = useNavigate();
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
+  useEffect(() => {
+    const isUser = () => {
+      user ? navigate("/") : navigate("/signIn");
+    };
+    isUser();
+  }, [user]);
+
   const submit_form = (e) => {
-    // async
     e.preventDefault();
     const userInput = {
       userId: userId.current.value,
@@ -32,15 +36,6 @@ function SignIn() {
     };
 
     loginCall(userInput, dispatch);
-    navigate("/");
-
-    // try {
-    //   const res = await axios.post(`${SHALLWE_URL}/api/auth/signIn`, user);
-    //   navigate("/");
-    //   console.log(res.data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   return (
