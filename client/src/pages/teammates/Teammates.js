@@ -47,15 +47,17 @@ function Teammates() {
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
               <Filter></Filter>
-              <div className="p-2 teammates_card_wrapper">
-                {allTeammate.map((t) => {
-                  return (
-                    <Link to={`/teammates/${t._id}`} key={`${t._id}`}>
-                      <TeammateCard teammate={t}></TeammateCard>
-                    </Link>
-                  );
-                })}
-              </div>
+              <Row className="p-4">
+                <div className="p-2 teammates_card_wrapper">
+                  {allTeammate.map((t) => {
+                    return (
+                      <Link to={`/teammates/${t._id}`} key={`${t._id}`}>
+                        <TeammateCard teammate={t}></TeammateCard>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </Row>
             </Row>
           </Col>
           <Col></Col>

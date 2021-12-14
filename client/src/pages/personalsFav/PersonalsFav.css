@@ -1,0 +1,15 @@
+#personalFav_wrapper {
+  border-radius: 55px;
+  background: linear-gradient(145deg, #6784a9, #7a9dc9);
+  box-shadow: 17px 17px 34px #506784, -17px -17px 34px #94bff4;
+}
+
+#personalFav_inner {
+  border-radius: 55px;
+  box-shadow: inset 17px 17px 34px #506784, inset -17px -17px 34px #94bff4;
+}
+
+#personalFav_wrapper a {
+  color: black;
+  text-decoration: none;
+}

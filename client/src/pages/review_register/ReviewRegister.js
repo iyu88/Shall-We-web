@@ -1,3 +1,4 @@
+import "./ReviewRegister.css";
 import {
   Container,
   Row,
@@ -19,7 +20,7 @@ function ReviewRegister() {
   // const SHALLWE_URL = "http://localhost:5055";
   const reviews_subMenu = [
     {
-      title: "후기 게시판",
+      title: "후기 목록",
       link: "/reviews",
     },
     {
@@ -31,10 +32,8 @@ function ReviewRegister() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [reviewType, setReviewType] = useState("공모전");
-  const [reviewWhom, setReviewWhom] = useState("");
 
-  // const review_type = useRef();
-  // const review_to_whom = useRef();
+  const review_to_whom = useRef();
   const review_title = useRef();
   const review_content = useRef();
   const impression = useRef();
@@ -44,18 +43,13 @@ function ReviewRegister() {
     setReviewType(e.target.value);
   };
 
-  const handleReviewWhom = (e) => {
-    e.preventDefault();
-    setReviewWhom(e.target.value);
-  };
-
   const registerNewReview = async (e) => {
     e.preventDefault();
     const newReview = {
       user_id: user._id,
       userId: user.userId,
       review_type: reviewType,
-      review_to_whom: reviewWhom,
+      review_to_whom: review_to_whom.current.value,
       review_title: review_title.current.value,
       review_content: review_content.current.value,
       impression: impression.current.value,
@@ -89,105 +83,105 @@ function ReviewRegister() {
         <Row>
           <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
-            <Row>
-              <Col>
-                <Form
-                  className="p-5 my-bg-primary"
-                  onSubmit={registerNewReview}
-                >
-                  <Form.Group as={Row} className="mb-3">
-                    <Form.Label as="legend" column sm={2}>
-                      분류
-                    </Form.Label>
-                    <Col sm={10} className="my-auto">
-                      <Form.Check
-                        inline
-                        label="공모전 후기"
-                        value="공모전"
-                        name="group1"
-                        type="radio"
-                        id={`inline-radio-1`}
-                        checked={true}
-                        onChange={handleReviewType}
-                      />
-                      <Form.Check
-                        inline
-                        label="팀원 후기"
-                        value="팀원"
-                        name="group1"
-                        type="radio"
-                        id={`inline-radio-2`}
-                        onChange={handleReviewType}
-                      />
-                    </Col>
-                  </Form.Group>
-                  <FloatingLabel
-                    controlId="floatingSelectGrid"
-                    label="대상 선택"
-                    className="mb-3"
-                  >
-                    <Form.Select
-                      aria-label="Floating label select example"
-                      onChange={handleReviewWhom}
+            <Container className="p-5">
+              <Row className="mb-3 p-4" id="review_wrapper">
+                <Col id="review_inner">
+                  <Form className="p-5" onSubmit={registerNewReview}>
+                    <Form.Group as={Row} className="mb-3">
+                      <Form.Label
+                        as="legend"
+                        column
+                        sm={2}
+                        className="fs-3 fw-bold"
+                      >
+                        분류
+                      </Form.Label>
+                      <Col sm={10} className="my-auto">
+                        <Form.Check
+                          inline
+                          label="공모전 후기"
+                          value="공모전"
+                          name="group1"
+                          type="radio"
+                          id={`inline-radio-1`}
+                          checked={true}
+                          onChange={handleReviewType}
+                        />
+                        <Form.Check
+                          inline
+                          label="팀원 후기"
+                          value="팀원"
+                          name="group1"
+                          type="radio"
+                          id={`inline-radio-2`}
+                          onChange={handleReviewType}
+                        />
+                      </Col>
+                    </Form.Group>
+                    <FloatingLabel
+                      controlId="contest_title"
+                      label="리뷰 대상"
+                      className="mb-3"
                     >
-                      <option value="팀원1">팀원1</option>
-                      <option value="팀원2">팀원2</option>
-                      <option value="팀원3">팀원3</option>
-                      <option value="공모전1">공모전1</option>
-                      <option value="공모전2">공모전2</option>
-                    </Form.Select>
-                  </FloatingLabel>
-                  <FloatingLabel
-                    controlId="contest_title"
-                    label="리뷰 제목"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      type="text"
-                      placeholder="Normal text"
-                      ref={review_title}
-                    />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingTextarea2"
-                    label="활동 내용"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      as="textarea"
-                      placeholder="Leave a comment here"
-                      style={{ height: "120px" }}
-                      ref={review_content}
-                    />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingTextarea2"
-                    label="소감"
-                    className="mb-3"
-                  >
-                    <Form.Control
-                      as="textarea"
-                      placeholder="Leave a comment here"
-                      style={{ height: "120px" }}
-                      ref={impression}
-                    />
-                  </FloatingLabel>
-                  <div className="d-flex justify-content-end">
-                    <Button
-                      type="submit"
-                      className="mb-2"
-                      onClick={cancelNewReview}
+                      <Form.Control
+                        type="text"
+                        placeholder="Normal text"
+                        ref={review_to_whom}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      controlId="contest_title"
+                      label="리뷰 제목"
+                      className="mb-3"
                     >
-                      취소하기
-                    </Button>
-                    <span>&nbsp;</span>
-                    <Button type="submit" className="mb-2">
-                      등록하기
-                    </Button>
-                  </div>
-                </Form>
-              </Col>
-            </Row>
+                      <Form.Control
+                        type="text"
+                        placeholder="Normal text"
+                        ref={review_title}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      controlId="floatingTextarea2"
+                      label="활동 내용"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        as="textarea"
+                        placeholder="Leave a comment here"
+                        style={{ height: "120px" }}
+                        ref={review_content}
+                      />
+                    </FloatingLabel>
+                    <FloatingLabel
+                      controlId="floatingTextarea2"
+                      label="소감"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        as="textarea"
+                        placeholder="Leave a comment here"
+                        style={{ height: "120px" }}
+                        ref={impression}
+                      />
+                    </FloatingLabel>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        type="submit"
+                        className="mb-2"
+                        onClick={cancelNewReview}
+                      >
+                        취소하기
+                      </Button>
+                      <span>&nbsp;</span>
+                      <Button type="submit" className="mb-2">
+                        등록하기
+                      </Button>
+                    </div>
+                  </Form>
+                </Col>
+              </Row>
+            </Container>
           </Col>
           <Col></Col>
         </Row>

@@ -14,12 +14,23 @@ function TeammateCard({ teammate }) {
           />
         </div>
         <div className="teammate_card_right">
-          <div className="teammate_card_title">{teammate?.nickname}</div>
-          <div className="teammate_card_info1">{teammate?.job}</div>
-          <div className="teammate_card_info2">{teammate?.position}</div>
-          <div className="teammate_card_info3">{teammate?.technical}</div>
-          <div className="teammate_card_info4">
-            {teammate?.teammate_view.length}
+          <div>
+            <span className="fw-bold">닉네임 : </span>
+            <span className="teammate_card_title">{teammate?.nickname}</span>
+          </div>
+          <div>
+            <span className="fw-bold">포지션 : </span>
+            <span className="teammate_card_info2">{teammate?.position}</span>
+          </div>
+          <div>
+            <span className="fw-bold">기술 역량 : </span>
+            <span className="teammate_card_info3">{teammate?.technical}</span>
+          </div>
+          <div>
+            <span className="fw-bold">조회수 : </span>
+            <span className="teammate_card_info4">
+              {teammate?.teammate_view?.length}
+            </span>
           </div>
         </div>
       </div>

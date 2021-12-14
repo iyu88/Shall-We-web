@@ -1,40 +1,46 @@
 .teammate_card_wrapper {
-  width: 16rem;
-  height: 22rem;
+  width: 18em;
+  height: 24em;
   padding: 1em;
-  margin: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: burlywood;
-}
-
-.teammate_card_left {
-  background-color: aqua;
-}
-
-.teammate_card_img {
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.teammate_card_right {
-  width: 12rem;
-  height: 12rem;
-  background-color: brown;
+  margin: 2em;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  transition: all 0.3s ease-out;
+  border-radius: 55px;
+  background: linear-gradient(145deg, #6784a9, #7a9dc9);
+  box-shadow: 17px 17px 34px #506784, -17px -17px 34px #94bff4;
 }
 
-.teammate_card_right div {
-  font-size: 1rem;
-  padding: 0.5em;
+.teammate_card_wrapper:hover {
+  transform: scale(110%);
+}
+
+.teammate_card_img {
+  width: 8em;
+  height: 8em;
+  object-fit: cover;
+  border-radius: 50px;
+  box-shadow: inset 17px 17px 34px #506784, inset -17px -17px 34px #94bff4;
+}
+
+.teammate_card_right {
+  width: 14em;
+  height: 12em;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 30px;
+  box-shadow: inset 17px 17px 34px #506784, inset -17px -17px 34px #94bff4;
+}
+
+.teammate_card_right span {
+  font-size: 1.2rem;
+  margin-bottom: 0.2em;
 }
 
 .teammate_card_title {
-  font-weight: bold;
+  font-style: 1rem;
 }

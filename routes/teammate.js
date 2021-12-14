@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Teammate = require("../models/Teammate");
+const User = require("../models/User");
 
 router.post("/register", async (req, res) => {
   try {
@@ -31,6 +32,15 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
+    const teammate = await Teammate.findOne({ userId: req.params.id });
+    res.status(200).json(teammate);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/my/:id", async (req, res) => {
+  try {
     const teammate = await Teammate.findOne({ user_id: req.params.id });
     res.status(200).json(teammate);
   } catch (err) {
@@ -41,7 +51,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const teammate = await Teammate.findById(req.params.id);
-    if (teammate.user_id === req.body.userId) {
+    if (teammate.user_id === req.body.user_id) {
       await teammate.updateOne({ $set: req.body });
       res.status(200).json("성공적으로 수정했습니다.");
     } else {
@@ -69,12 +79,19 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id/fav", async (req, res) => {
   try {
     const teammate = await Teammate.findById(req.params.id);
+    const user = await User.findById(req.body.userId);
     if (!teammate.teammate_fav.includes(req.body.userId)) {
       await teammate.updateOne({ $push: { teammate_fav: req.body.userId } });
-      res.status(200).json("즐겨찾기에 추가되었습니다.");
+      if (!user.fav_teammate.includes(req.params.id)) {
+        await user.updateOne({ $push: { fav_teammate: req.params.id } });
+        res.status(200).json("즐겨찾기에 추가되었습니다.");
+      }
     } else {
       await teammate.updateOne({ $pull: { teammate_fav: req.body.userId } });
-      res.status(200).json("즐겨찾기에서 제거되었습니다.");
+      if (user.fav_teammate.includes(req.params.id)) {
+        await user.updateOne({ $pull: { fav_teammate: req.params.id } });
+        res.status(200).json("즐겨찾기에서 제거되었습니다.");
+      }
     }
   } catch (err) {
     res.status(500).json(err);

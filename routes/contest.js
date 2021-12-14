@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Contest = require("../models/Contest");
+const User = require("../models/User");
 
 router.post("/register", async (req, res) => {
   try {
@@ -41,8 +42,8 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const contest = await Contest.findById(req.params.id);
-    if (conteste.user_id === req.body.userId) {
+    const contest = await Contest.findOne({ _id: req.params.id });
+    if (contest.user_id === req.body.user_id) {
       await contest.updateOne({ $set: req.body });
       res.status(200).json("성공적으로 수정했습니다.");
     } else {
@@ -70,12 +71,19 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id/fav", async (req, res) => {
   try {
     const contest = await Contest.findById(req.params.id);
+    const user = await User.findById(req.body.userId);
     if (!contest.contest_fav.includes(req.body.userId)) {
       await contest.updateOne({ $push: { contest_fav: req.body.userId } });
-      res.status(200).json("즐겨찾기에 추가되었습니다.");
+      if (!user.fav_contest.includes(req.params.id)) {
+        await user.updateOne({ $push: { fav_contest: req.params.id } });
+        res.status(200).json("즐겨찾기에 추가되었습니다.");
+      }
     } else {
       await contest.updateOne({ $pull: { contest_fav: req.body.userId } });
-      res.status(200).json("즐겨찾기에서 제거되었습니다.");
+      if (user.fav_contest.includes(req.params.id)) {
+        await user.updateOne({ $pull: { fav_contest: req.params.id } });
+        res.status(200).json("즐겨찾기에서 제거되었습니다.");
+      }
     }
   } catch (err) {
     res.status(500).json(err);

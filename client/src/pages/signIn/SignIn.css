@@ -1,7 +1,9 @@
 .signin_wrapper {
   width: 30vw;
   text-align: center;
-  background-color: aqua;
+  border-radius: 55px;
+  background: linear-gradient(145deg, #6784a9, #7a9dc9);
+  box-shadow: 17px 17px 34px #506784, -17px -17px 34px #94bff4;
 }
 
 .signin_title {
@@ -11,4 +13,8 @@
 
 .signin_additional {
   font-size: 1rem;
+}
+
+#signin_button:disabled {
+  background-color: #506784;
 }

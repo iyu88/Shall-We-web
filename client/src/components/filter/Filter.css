@@ -1,10 +1,10 @@
-#sub_nav {
+#filter_nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-#sub_nav a {
+#filter_nav a {
   color: black;
   margin-right: 2em;
   padding: 0.5em;
@@ -13,9 +13,9 @@
   transition: all 0.3s ease-out;
 }
 
-#sub_nav > a:hover {
+#filter_nav > a:hover {
   transform: scale(110%);
   text-decoration: underline;
-  color: #eee8a9;
+  color: #7293bc;
   font-weight: bold;
 }

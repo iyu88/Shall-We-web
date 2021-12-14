@@ -11,6 +11,7 @@ const authRoute = require("./routes/auth");
 const contestRoute = require("./routes/contest");
 const teammateRoute = require("./routes/teammate");
 const reviewRoute = require("./routes/review");
+const accountRoute = require("./routes/account");
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/contest", contestRoute);
 app.use("/api/teammate", teammateRoute);
 app.use("/api/review", reviewRoute);
+app.use("/api/account", accountRoute);
 
 // React Router 오류 방지
 app.get("*", (req, res) => {

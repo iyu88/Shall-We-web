@@ -19,12 +19,15 @@ router.post("/signUp", async (req, res) => {
 // SignIn
 router.post("/signIn", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.userId });
-    !user && res.status(404).json("아이디를 확인해주세요.");
-    if (req.body.password !== user.password) {
-      res.status(404).json("비밀번호를 확인해주세요.");
+    const user = await User.findOne({ userId: req.body.userId });
+    if (!user) {
+      res.status(404).json("아이디를 확인해주세요.");
     } else {
-      res.status(200).json(user);
+      if (req.body.password !== user.password) {
+        res.status(404).json("비밀번호를 확인해주세요.");
+      } else {
+        res.status(200).json(user);
+      }
     }
   } catch (err) {
     res.status(500).json(err);

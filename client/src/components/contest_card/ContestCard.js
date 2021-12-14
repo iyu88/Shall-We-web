@@ -14,9 +14,13 @@ function ContestCard({ contest }) {
           />
         </div>
         <div className="contest_card_right">
+          <div className="fw-bold">제목</div>
           <div className="contest_card_title">{contest?.article_title}</div>
+          <div className="fw-bold">종료날짜</div>
           <div className="contest_card_info1">{contest?.due_date}</div>
+          <div className="fw-bold">필요인원</div>
           <div className="contest_card_info2">{contest?.num_of_people}</div>
+          <div className="fw-bold">조회수</div>
           <div className="contest_card_info3">
             {contest?.contest_view.length}
           </div>

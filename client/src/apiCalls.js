@@ -9,10 +9,10 @@ export const loginCall = async (userCredential, dispatch) => {
       `${SHALLWE_URL}/api/auth/signIn`,
       userCredential
     );
-    window.alert("로그인에 성공했습니다.");
     dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    window.alert("로그인에 성공했습니다.");
   } catch (error) {
-    window.alert("아이디와 비밀번호를 다시 확인해주세요.");
     dispatch({ type: "LOGIN_FAILURE", payload: error });
+    window.alert("아이디와 비밀번호를 다시 확인해주세요.");
   }
 };

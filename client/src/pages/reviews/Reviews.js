@@ -1,12 +1,12 @@
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import "./Reviews.css";
+import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import MyNav from "../../components/nav/MyNav";
 import Footer from "../../components/footer/Footer";
 import SubNav from "../../components/subNav/SubNav";
-import "./Reviews.css";
 import Filter from "../../components/filter/Filter";
 import ReviewItem from "../../components/review_item/ReviewItem";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ function Reviews() {
   // const SHALLWE_URL = "http://localhost:5055";
   const reviews_subMenu = [
     {
-      title: "후기 게시판",
+      title: "후기 목록",
       link: "/reviews",
     },
     {
@@ -24,19 +24,35 @@ function Reviews() {
     },
   ];
 
+  const reviews_filter = [
+    {
+      title: "전체 리뷰",
+      link: "/reviews",
+    },
+    {
+      title: "공모전 리뷰",
+      link: "/reviews?cat=contest",
+    },
+    {
+      title: "팀원 리뷰",
+      link: "/reviews?cat=teammate",
+    },
+  ];
+
   const [allReview, setAllReview] = useState([]);
+  const { search } = useLocation();
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get(`${SHALLWE_URL}/api/review/`);
+        const res = await axios.get(`${SHALLWE_URL}/api/review/${search}`);
         setAllReview(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchReviews();
-  }, []);
+  }, [search]);
 
   return (
     <>
@@ -47,7 +63,26 @@ function Reviews() {
           <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
-              <Filter></Filter>
+              <Filter filter={reviews_filter}></Filter>
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-center"
+              >
+                <div className="d-flex" style={{ marginLeft: "1.6em" }}>
+                  <div className="my-auto fw-bold">종류</div>
+                  <div className="ms-3 my-auto">
+                    <div className="fw-bold" style={{ marginLeft: "24em" }}>
+                      제목
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex fw-bold">
+                  <div style={{ width: "8em", marginRight: "2em" }}>작성자</div>
+                  <div style={{ marginRight: "1.3em" }} className="fw-bold">
+                    조회수
+                  </div>
+                </div>
+              </ListGroup.Item>
               <ListGroup as="ul" className="reviews_item_wrapper">
                 {allReview.map((r) => {
                   return (

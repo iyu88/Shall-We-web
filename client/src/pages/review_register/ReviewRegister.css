@@ -1,12 +1,10 @@
-.signup_wrapper {
-  width: 30vw;
-  text-align: center;
+#review_wrapper {
   border-radius: 55px;
   background: linear-gradient(145deg, #6784a9, #7a9dc9);
   box-shadow: 17px 17px 34px #506784, -17px -17px 34px #94bff4;
 }
 
-.signup_title {
-  font-size: 3rem;
-  font-weight: bold;
+#review_inner {
+  border-radius: 55px;
+  box-shadow: inset 17px 17px 34px #506784, inset -17px -17px 34px #94bff4;
 }

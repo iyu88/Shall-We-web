@@ -20,9 +20,25 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  let category;
+  if (req.query.cat === "contest") {
+    category = "공모전";
+  } else if (req.query.cat === "teammate") {
+    category = "팀원";
+  }
+  console.log(category);
   try {
-    const allReview = await Review.find();
-    res.status(200).json(allReview);
+    let reviews;
+    if (category) {
+      reviews = await Review.find({
+        review_type: {
+          $in: [category],
+        },
+      });
+    } else {
+      reviews = await Review.find();
+    }
+    res.status(200).json(reviews);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -40,7 +56,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
-    if (review.user_id === req.body.userId) {
+    if (review.user_id === req.body.user_id) {
       await review.updateOne({ $set: req.body });
       res.status(200).json("성공적으로 수정했습니다.");
     } else {

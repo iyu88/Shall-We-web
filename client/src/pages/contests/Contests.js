@@ -47,15 +47,17 @@ function Contests() {
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
             <Row>
               <Filter></Filter>
-              <div className="p-2 contests_card_wrapper">
-                {allContest.map((c) => {
-                  return (
-                    <Link to={`/contests/${c._id}`} key={`${c._id}`}>
-                      <ContestCard contest={c}></ContestCard>
-                    </Link>
-                  );
-                })}
-              </div>
+              <Row className="p-4">
+                <div className="p-2 contests_card_wrapper">
+                  {allContest.map((c) => {
+                    return (
+                      <Link to={`/contests/${c._id}`} key={`${c._id}`}>
+                        <ContestCard contest={c}></ContestCard>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </Row>
             </Row>
           </Col>
           <Col></Col>

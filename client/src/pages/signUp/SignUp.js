@@ -39,7 +39,7 @@ function SignUp() {
       try {
         const res = await axios.post(`${SHALLWE_URL}/api/auth/signUp`, user);
         window.alert(res.data);
-        navigate("/");
+        navigate("/signIn");
       } catch (err) {
         console.log(err);
       }
@@ -53,54 +53,38 @@ function SignUp() {
         <Row>
           <Col></Col>
           <Col md={12} lg={10} xl={8} className="my-bg-secondary">
-            <Row>
-              <Col>
-                <Row className="signup_wrapper p-4">
-                  <Form>
-                    <div className="signup_title mb-3">회원가입</div>
-                    <FloatingLabel label="이름" className="mb-4">
-                      <Form.Control
-                        type="email"
-                        placeholder="name@example.com"
-                        ref={username}
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel label="아이디" className="mb-4">
-                      <Form.Control
-                        type="email"
-                        placeholder="name@example.com"
-                        ref={userId}
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel label="비밀번호" className="mb-4">
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        ref={password}
-                      />
-                    </FloatingLabel>
-                    <FloatingLabel label="비밀번호 확인" className="mb-4">
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        ref={passwordCheck}
-                      />
-                    </FloatingLabel>
-                    <div className="d-grid">
-                      <Button
-                        type="submit"
-                        className="mb-4"
-                        size="lg"
-                        onClick={submit_form}
+            <Row className="p-5">
+              <Col className="my-5 d-flex justify-content-center align-items-center">
+                <div className="mx-2 p-3 d-flex flex-column justify-content-center align-items-center">
+                  <Row className="signup_wrapper p-4">
+                    <Form className="p-5" onSubmit={submit_form}>
+                      <div
+                        className="signup_title mb-3"
+                        style={{ color: "#eee8a9" }}
                       >
                         회원가입
-                      </Button>
-                    </div>
-                  </Form>
-                </Row>
-              </Col>
-              <Col className="d-flex justify-content-center align-items-center">
-                <PicSignUp style={{ width: "100%", height: "100%" }} />
+                      </div>
+                      <FloatingLabel label="이름" className="mb-4">
+                        <Form.Control type="text" ref={username} />
+                      </FloatingLabel>
+                      <FloatingLabel label="아이디" className="mb-4">
+                        <Form.Control type="text" ref={userId} />
+                      </FloatingLabel>
+                      <FloatingLabel label="비밀번호" className="mb-4">
+                        <Form.Control type="password" ref={password} />
+                      </FloatingLabel>
+                      <FloatingLabel label="비밀번호 확인" className="mb-4">
+                        <Form.Control type="password" ref={passwordCheck} />
+                      </FloatingLabel>
+                      <div className="d-grid">
+                        <Button type="submit" className="mb-4" size="lg">
+                          회원가입
+                        </Button>
+                      </div>
+                    </Form>
+                  </Row>
+                </div>
+                <PicSignUp style={{ width: "60%" }} />
               </Col>
             </Row>
           </Col>

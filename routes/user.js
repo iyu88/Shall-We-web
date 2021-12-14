@@ -4,8 +4,8 @@ const User = require("../models/User");
 router.put("/:id", async (req, res) => {
   if (req.params.id === req.body.userId) {
     try {
-      const user = await new User.findByIdAndUpdate(req.body.userId, {
-        $set: req.body,
+      const user = await User.findByIdAndUpdate(req.body.userId, {
+        password: req.body.password,
       });
       res.status(200).json("계정이 업데이트 되었습니다.");
     } catch (err) {
@@ -19,7 +19,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   if (req.params.id === req.body.userId) {
     try {
-      const user = await User.findByIdAndDelete({ _id: req.body.userId });
+      await User.findByIdAndDelete({ _id: req.body.userId });
       res.status(200).json("계정이 삭제되었습니다.");
     } catch (err) {
       res.status(500).json(err);
@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
   // if (req.params.id === req.body.userId) {
   try {
     const user = await User.findOne({ _id: req.params.id });
-    const { password, updatedAt, ...others } = user._doc;
+    const { updatedAt, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);

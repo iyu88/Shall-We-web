@@ -1,0 +1,29 @@
+#footer_wrapper {
+  background-color: #f0faff;
+}
+
+.footer_link {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.footer_link a {
+  color: black;
+  padding: 0.3em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+
+.footer_link > a:hover {
+  transform: scale(105%);
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+}
+
+.footer_title {
+  text-align: center;
+  padding: 0.5em;
+}

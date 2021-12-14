@@ -1,16 +1,42 @@
 #my_nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 #my_nav a {
   color: black;
-  margin-left: 2rem;
-  font-size: 1.2rem;
+  margin-left: 2em;
+  padding: 0.5em;
+  font-size: 1.3rem;
   text-decoration: none;
+  transition: all 0.3s ease-out;
 }
 
 #my_nav > a:first-child {
   font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#my_nav > a:hover {
+  transform: scale(120%);
+  text-decoration: underline;
+  color: #eee8a9;
+  font-weight: bold;
+}
+
+.logout_btn {
+  color: black;
+  margin-left: 2em;
+  padding: 0.5em;
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+
+.logout_btn:hover {
+  transform: scale(120%);
+  text-decoration: underline;
+  color: #eee8a9;
   font-weight: bold;
 }
