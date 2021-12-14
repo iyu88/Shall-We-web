@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const teammate = await Teammate.findOne({ userId: req.params.id });
+    const teammate = await Teammate.findOne({ _id: req.params.id });
     res.status(200).json(teammate);
   } catch (err) {
     res.status(500).json(err);
